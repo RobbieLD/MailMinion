@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{NAME}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="bulma.css">
+    </head>
+    <body>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let cardToggles = document.getElementsByClassName('card-toggle');
+                for (let i = 0; i < cardToggles.length; i++) {
+                    cardToggles[i].addEventListener('click', e => {
+                        e.currentTarget.nextElementSibling.classList.toggle('is-hidden');
+                        e.currentTarget.nextElementSibling.nextElementSibling.classList.toggle('is-hidden');
+                        e.currentTarget.classList.toggle('is-selected');
+                    });
+                }
+
+                let modalLinks = document.getElementsByClassName('modal-link');
+                for (let i = 0; i < modalLinks.length; i++) {
+                    modalLinks[i].addEventListener('click', e => {
+                        e.currentTarget.nextElementSibling.classList.toggle('is-active');
+                    });
+                }
+
+                let modalCloses = document.getElementsByClassName('modal-close');
+                for (let i = 0; i < modalCloses.length; i++) {
+                    modalCloses[i].addEventListener('click', e => {
+                        e.currentTarget.parentElement.classList.toggle('is-active');
+                    });
+                }
+                
+            });
+
+            window.addEventListener('keydown', function (e) {
+                // Capture Control A for expand all
+                if (event.ctrlKey && event.keyCode == 65) {
+                    console.log('Expanding all');
+
+                    let cardToggles = document.getElementsByClassName('card-toggle');
+                    for (let i = 0; i < cardToggles.length; i++) {
+                        cardToggles[i].nextElementSibling.classList.remove('is-hidden');
+                        cardToggles[i].nextElementSibling.nextElementSibling.classList.remove('is-hidden');
+                    }
+
+                    event.preventDefault();
+                }
+
+                // Capture Control S for Collapse All
+                if (event.ctrlKey && event.keyCode == 83) {
+                    console.log('Collapsing all');
+
+                    let cardToggles = document.getElementsByClassName('card-toggle');
+                    for (let i = 0; i < cardToggles.length; i++) {
+                        cardToggles[i].nextElementSibling.classList.add('is-hidden');
+                        cardToggles[i].nextElementSibling.nextElementSibling.classList.add('is-hidden');
+                    }
+
+                    event.preventDefault();
+                }
+
+                // Capture Control W for Collapse All Attachments
+                if (event.ctrlKey && event.keyCode == 69) {
+                    console.log('Collapsing all');
+
+                    let cardToggles = document.getElementsByClassName('card-toggle');
+                    for (let i = 0; i < cardToggles.length; i++) {
+                        cardToggles[i].nextElementSibling.classList.add('is-hidden');
+                    }
+
+                    event.preventDefault();
+                }
+
+                // Capture Control Q for expand all attachments
+                if (event.ctrlKey && event.keyCode == 81) {
+                    console.log('Expanding all');
+
+                    let cardToggles = document.getElementsByClassName('card-toggle');
+                    for (let i = 0; i < cardToggles.length; i++) {
+                        cardToggles[i].nextElementSibling.classList.remove('is-hidden');
+                    }
+
+                    event.preventDefault();
+                }
+
+
+            });
+        </script>
+
+        <!-- Main Email Layout One Tab Per Folder -->
+        <div class="tabs is-toggle is-fullwidth">
+            <ul>
+                <li class="is-active"><a>{NAME}</a></li>
+                {TABS}
+            </ul>
+        </div>
+
+        <!-- Main Content Table -->
+        <table class="table is-fullwidth is-hoverable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Subject</th>
+                    <th>Attachments</th>
+                </tr>
+            </thead>
+            <tbody>
+                {MAIL}
+            </tbody>
+        </table>
+    </body>
+</html>
