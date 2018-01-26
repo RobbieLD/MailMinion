@@ -1,0 +1,173 @@
+﻿@using RazorLight;
+@using MailMinion.Models
+@inherits TemplatePage<Folder>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@Model.Name</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="bulma.css">
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let cardToggles = document.getElementsByClassName('card-toggle');
+            for (let i = 0; i < cardToggles.length; i++) {
+                cardToggles[i].addEventListener('click', e => {
+                    e.currentTarget.nextElementSibling.classList.toggle('is-hidden');
+                    e.currentTarget.nextElementSibling.nextElementSibling.classList.toggle('is-hidden');
+                    e.currentTarget.classList.toggle('is-selected');
+                });
+            }
+
+            let modalLinks = document.getElementsByClassName('modal-link');
+            for (let i = 0; i < modalLinks.length; i++) {
+                modalLinks[i].addEventListener('click', e => {
+                    e.currentTarget.nextElementSibling.classList.toggle('is-active');
+                });
+            }
+
+            let modalCloses = document.getElementsByClassName('modal-close');
+            for (let i = 0; i < modalCloses.length; i++) {
+                modalCloses[i].addEventListener('click', e => {
+                    e.currentTarget.parentElement.classList.toggle('is-active');
+                });
+            }
+
+        });
+
+        window.addEventListener('keydown', function (e) {
+            // Capture Control A for expand all
+            if (event.ctrlKey && event.keyCode == 65) {
+                console.log('Expanding all');
+
+                let cardToggles = document.getElementsByClassName('card-toggle');
+                for (let i = 0; i < cardToggles.length; i++) {
+                    cardToggles[i].nextElementSibling.classList.remove('is-hidden');
+                    cardToggles[i].nextElementSibling.nextElementSibling.classList.remove('is-hidden');
+                }
+
+                event.preventDefault();
+            }
+
+            // Capture Control S for Collapse All
+            if (event.ctrlKey && event.keyCode == 83) {
+                console.log('Collapsing all');
+
+                let cardToggles = document.getElementsByClassName('card-toggle');
+                for (let i = 0; i < cardToggles.length; i++) {
+                    cardToggles[i].nextElementSibling.classList.add('is-hidden');
+                    cardToggles[i].nextElementSibling.nextElementSibling.classList.add('is-hidden');
+                }
+
+                event.preventDefault();
+            }
+
+            // Capture Control W for Collapse All Attachments
+            if (event.ctrlKey && event.keyCode == 69) {
+                console.log('Collapsing all');
+
+                let cardToggles = document.getElementsByClassName('card-toggle');
+                for (let i = 0; i < cardToggles.length; i++) {
+                    cardToggles[i].nextElementSibling.classList.add('is-hidden');
+                }
+
+                event.preventDefault();
+            }
+
+            // Capture Control Q for expand all attachments
+            if (event.ctrlKey && event.keyCode == 81) {
+                console.log('Expanding all');
+
+                let cardToggles = document.getElementsByClassName('card-toggle');
+                for (let i = 0; i < cardToggles.length; i++) {
+                    cardToggles[i].nextElementSibling.classList.remove('is-hidden');
+                }
+
+                event.preventDefault();
+            }
+
+
+        });
+    </script>
+
+    <!-- Main Email Layout One Tab Per Folder -->
+    <div class="tabs is-toggle is-fullwidth">
+        <ul>
+            <li class="is-active"><a>@Model.Name</a></li>
+            @foreach (var tab in Model.Tabs)
+            {
+                <li><a href="@tab.Url">@tab.Name</a></li>
+            }
+        </ul>
+    </div>
+
+    <!-- Main Content Table -->
+    <table class="table is-fullwidth is-hoverable">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Subject</th>
+                <th>Attachments</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var message in Model.Messages)
+            {
+                <tr class="card-toggle">
+                    <td>@message.Date</td>
+                    <td>@message.From</td>
+                    <td>@message.To</td>
+                    <td>@message.Subject</td>
+                    <td>@message.Attachments.Count</td>
+                </tr>
+
+                <!-- Attachment Row -->
+                <tr class="is-hidden">
+                    <td colspan="5">
+                        <div>
+                            <table>
+                                <tr>
+                                    @foreach (var attachment in message.Attachments)
+                                    {
+                                        <td>
+                                            <a class="modal-link" href="#nogo">
+                                                <img src="@attachment.Url" height="50" width="50" alt="@attachment.Url" />
+                                            </a>
+                                            <div class="modal">
+                                                <div class="modal-background"></div>
+                                                <div class="modal-content">
+                                                    <p class="image">
+                                                        <img src="@attachment.Url" alt="@attachment.Url">
+                                                    </p>
+                                                </div>
+                                                <button class="modal-close is-large" aria-label="close"></button>
+                                            </div>
+                                        </td>
+                                    }
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Body Row -->
+                <tr class="is-hidden">
+                    <td colspan="5">
+                        <div class="card-content">
+                            <div class="content">
+                                <iframe frameborder="0" allowtransparency="true" style="display:block; width:97vw; height:100vh;" src="@message.FileName"></iframe>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</body>
+</html>

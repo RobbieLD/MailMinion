@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using MailMinion.Models;
 
 namespace MailMinion
 {
     public interface IMailBoxCreator
     {
-        void Run(string path, IList<string> folders);
+        MailBox Create(string path, IList<Tab> tabs);
     }
 }

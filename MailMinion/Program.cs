@@ -1,9 +1,4 @@
 ﻿using System;
-using System.IO;
-using MimeKit;
-using MailKit.Net.Imap;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MailMinion
@@ -16,6 +11,7 @@ namespace MailMinion
             IServiceProvider serviceProvider = new ServiceCollection()
                 .AddSingleton<IConfigurationMananger, ConfigurationMananger>(provider => new ConfigurationMananger("app.json"))
                 .AddSingleton<IMailBoxManager, MailBoxManager>()
+                .AddSingleton<IFileService, FileService>()
                 .BuildServiceProvider();
 
             serviceProvider.GetService<IMailBoxManager>().GenerateMailBoxes();

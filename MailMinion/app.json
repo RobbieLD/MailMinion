@@ -1,5 +1,8 @@
 ﻿{
   "OutputPath": "C:\\Temp\\Dump\\",
   "InputPath": "C:\\Temp\\mbox2\\",
-  "IgnoreListPath": "C:\\Temp\\ignore.txt"
+  "IgnoreListPath": "C:\\Temp\\ignore.txt",
+  "AttachmentDirectory": "\\\\attachments\\\\",
+  "TemplateDirectory": "Z:\\Projects\\MailMinion\\MailMinion\\Views",
+  "ImageExtensions": [ "jpg", "bmp", "jpeg", "gif", "png" ]
 }
