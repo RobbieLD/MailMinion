@@ -144,11 +144,10 @@ namespace MailMinion
 
                 // Render out the contents of the file
                 var engine = new RazorLightEngineBuilder()
-                    .UseFilesystemProject(fileService.TemplateDirectory)
                     .UseMemoryCachingProvider()
                     .Build();
 
-                mailBox.Html = engine.CompileRenderAsync("folder.cshtml", folderModel).Result;
+                mailBox.Html = engine.CompileRenderAsync("folder", fileService.Template, folderModel).Result;
             }
 
             // Save the file out using the file service

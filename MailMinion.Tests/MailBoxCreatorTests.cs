@@ -1,8 +1,9 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using MimeKit;
 using MailMinion.Models;
 
 namespace MailMinion.Tests
@@ -11,21 +12,15 @@ namespace MailMinion.Tests
     public class MailBoxCreatorTests
     {
         [TestMethod]
-        public void Test()
-        {
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
         public void TestRun()
         {
             // Arrange
             var mockFileService = new Mock<IFileService>();
 
             mockFileService.Setup(x => x.IsImage(It.IsAny<string>())).Returns(true);
-            mockFileService.Setup(x => x.SaveAttachment(It.IsAny<MimeKit.MimePart>(), It.IsAny<int>(), It.IsAny<int>())).Returns("test.jpg");
+            mockFileService.Setup(x => x.SaveAttachment(It.IsAny<MimePart>(), It.IsAny<int>(), It.IsAny<int>())).Returns("test.jpg");
             mockFileService.Setup(x => x.IgnoreList).Returns(new List<string>());
-            mockFileService.Setup(x => x.TemplateDirectory).Returns("Z:\\Projects\\MailMinion\\MailMinion\\Views");
+            mockFileService.Setup(x => x.Template).Returns("Hello @Model.Name");
 
             string mboxString = "From MAILER-DAEMON Fri Jul  8 12:08:34 2011\n" +
                                 "From: Author < author@example.com >\n" +

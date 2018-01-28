@@ -11,11 +11,11 @@ namespace MailMinion
         private readonly IConfigurationMananger configurationMananger;
         public IList<string> IgnoreList { get; set; }
 
-        public string TemplateDirectory
+        public string Template
         {
             get
             {
-                return configurationMananger.Configuration.TemplateDirectory;
+                return File.ReadAllText(string.Format("{0}\\folder.cshtml", configurationMananger.Configuration.TemplateDirectory));
             }
         }
 

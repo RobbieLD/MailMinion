@@ -7,7 +7,7 @@ namespace MailMinion
     public interface IFileService
     {
         IList<string> IgnoreList { get; set; }
-        string TemplateDirectory { get; }
+        string Template { get; }
 
         Stream GetMailStream(string path);
         bool IsImage(string fileName);

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailMinion", "MailMinion\MailMinion.csproj", "{72BBA6B6-A2DE-47DA-9CA5-DA60B5A755E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailMinion.Tests", "MailMinion.Tests\MailMinion.Tests.csproj", "{07CF4407-FE56-4ED9-8304-6F4A197C7011}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailMinion.Tests", "MailMinion.Tests\MailMinion.Tests.csproj", "{0E353D67-1D6F-4864-895A-4C91BB00EEF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{72BBA6B6-A2DE-47DA-9CA5-DA60B5A755E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72BBA6B6-A2DE-47DA-9CA5-DA60B5A755E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72BBA6B6-A2DE-47DA-9CA5-DA60B5A755E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{07CF4407-FE56-4ED9-8304-6F4A197C7011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07CF4407-FE56-4ED9-8304-6F4A197C7011}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07CF4407-FE56-4ED9-8304-6F4A197C7011}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07CF4407-FE56-4ED9-8304-6F4A197C7011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E353D67-1D6F-4864-895A-4C91BB00EEF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E353D67-1D6F-4864-895A-4C91BB00EEF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E353D67-1D6F-4864-895A-4C91BB00EEF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E353D67-1D6F-4864-895A-4C91BB00EEF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
