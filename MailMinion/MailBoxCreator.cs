@@ -27,7 +27,11 @@ namespace MailMinion
                 // Create the parser
                 var parser = new MimeParser(stream, MimeFormat.Mbox);
 
-                Folder folderModel = new Folder();
+                Folder folderModel = new Folder
+                {
+                    Name = fileName,
+                    Tabs = tabs
+                };
 
                 // Loop through all the messages
                 while (!parser.IsEndOfStream)
@@ -142,12 +146,8 @@ namespace MailMinion
                 }
 
                 // Render out the contents of the file
-                var engine = new RazorLightEngineBuilder()
-                    .UseFilesystemProject(fileService.TemplateDirectory)
-                    .UseMemoryCachingProvider()
-                    .Build();
-
-                mailBox.Html = engine.CompileRenderAsync("folder.cshtml", folderModel).Result;
+                var template = Template.Compile(fileService.Template);
+                mailBox.Html = template.Render(folderModel);
             }
 
             // Save the file out using the file service
