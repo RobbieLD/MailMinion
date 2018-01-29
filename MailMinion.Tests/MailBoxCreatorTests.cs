@@ -18,9 +18,11 @@ namespace MailMinion.Tests
             var mockFileService = new Mock<IFileService>();
 
             mockFileService.Setup(x => x.IsImage(It.IsAny<string>())).Returns(true);
-            //mockFileService.Setup(x => x.SaveAttachment(It.IsAny<MimePart>(), It.IsAny<int>(), It.IsAny<int>())).Returns("test.jpg");
             mockFileService.Setup(x => x.IgnoreList).Returns(new List<string>());
-            mockFileService.Setup(x => x.Template).Returns("Mailbox @Model.Name");
+
+            string template = File.ReadAllText("..\\..\\..\\MailMinion\\Views\\folder.cshtml");
+
+            mockFileService.Setup(x => x.Template).Returns(template);
 
             string mboxString = "From MAILER-DAEMON Fri Jul  8 12:08:34 2011\n" +
                                 "From: Author < author@example.com >\n" +
