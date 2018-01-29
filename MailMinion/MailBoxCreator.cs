@@ -1,10 +1,9 @@
-﻿using System.Reflection;
-using RazorLight;
-using MimeKit;
+﻿using MimeKit;
 using System;
 using System.Collections.Generic;
 using MailMinion.Models;
 using System.IO;
+using RazorTemplates.Core;
 
 namespace MailMinion
 {
