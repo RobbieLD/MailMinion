@@ -17,7 +17,6 @@ namespace MailMinion.Tests
             // Arrange
             var mockFileService = new Mock<IFileService>();
 
-            mockFileService.Setup(x => x.IsImage(It.IsAny<string>())).Returns(true);
             mockFileService.Setup(x => x.IgnoreList).Returns(new List<string>());
 
             string template = File.ReadAllText("..\\..\\..\\MailMinion\\Views\\folder.cshtml");
@@ -43,9 +42,7 @@ namespace MailMinion.Tests
             // Create Text Stream for example parsing
             byte[] byteArray = Encoding.ASCII.GetBytes(mboxString);
             MemoryStream stream = new MemoryStream(byteArray);
-
             mockFileService.Setup(x => x.GetMailStream(It.IsAny<string>())).Returns(stream);
-
             MailBoxCreator mailBoxCreator = new MailBoxCreator(mockFileService.Object);
 
             // Act
