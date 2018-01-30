@@ -86,10 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\bulma.css" />
-    <Content Include="Resources\folder.html" />
-    <Content Include="Resources\message.html" />
-    <Content Include="Resources\modal.html" />
-    <Content Include="Resources\tab.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
