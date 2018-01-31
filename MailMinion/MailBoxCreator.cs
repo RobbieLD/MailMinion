@@ -27,6 +27,21 @@ namespace MailMinion
                 // Create the parser
                 var parser = new MimeParser(stream, MimeFormat.Mbox);
 
+                // remove the current folder as a tab
+                int currentTabIndex = 0;
+                
+                foreach(Tab tab in tabs)
+                {
+                    if (tab.Name == fileName)
+                    {
+                        break;
+                    }
+
+                    currentTabIndex++;
+                }
+
+                tabs.RemoveAt(currentTabIndex);
+
                 Folder folderModel = new Folder
                 {
                     Name = fileName,
@@ -95,7 +110,7 @@ namespace MailMinion
 
                         foreach (MimePart attachment in attachments)
                         {
-                            string attachmentName = fileService.SaveAttachment(attachment, mailBox.MessageCount, attachmemntCount);
+                            string attachmentName = fileService.SaveAttachment(attachment, mailBox.MessageCount, attachmemntCount, folderModel.Name);
                             attachmentNames.Add(attachmentName);
                             attachmemntCount++;
                         }
@@ -118,7 +133,7 @@ namespace MailMinion
                             To = (message.To[0] as MailboxAddress).Address,
                             From = (message.From[0] as MailboxAddress).Address,
                             Subject = message.Subject,
-                            FileName = fileName
+                            FileName = string.Format(@"{0}\{1}.html", fileName, mailBox.MessageCount)
                         };
 
                         if (attachments.Count > 0)
@@ -127,7 +142,7 @@ namespace MailMinion
                             {
                                 messageModel.Attachments.Add(new Attachment()
                                 {
-                                    Url = an,
+                                    Url = fileService.GetAttachmentPath(an, folderModel.Name),
                                     IsImage = fileService.IsImage(an)
                                 });                                
                             }

@@ -11,8 +11,9 @@ namespace MailMinion
 
         Stream GetMailStream(string path);
         bool IsImage(string fileName);
-        string SaveAttachment(MimePart attachment, int messageCount, int attachmentCount);
+        string SaveAttachment(MimePart attachment, int messageCount, int attachmentCount, string folderName);
         void SaveEmail(string fileName, string content, int messageCount);
         void SaveMailBox(MailBox mailBox, string fileName);
+        string GetAttachmentPath(string attachmentName, string folderName);
     }
 }

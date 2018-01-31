@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace MailMinion
 {
@@ -15,7 +14,7 @@ namespace MailMinion
         {
             get
             {
-                return File.ReadAllText(string.Format("{0}\\folder.cshtml", configurationMananger.Configuration.TemplateDirectory));
+                return File.ReadAllText(string.Format(@"{0}\folder.cshtml", configurationMananger.Configuration.TemplateDirectory));
             }
         }
 
@@ -41,7 +40,7 @@ namespace MailMinion
         public void SaveEmail(string fileName, string content, int messageCount)
         {
             string path = string.Format("{0}{1}", configurationMananger.Configuration.OutputPath, fileName);
-            string pathAndName = string.Format("{0}\\{1}.html", path, messageCount);
+            string pathAndName = string.Format(@"{0}\{1}.html", path, messageCount);
             
             if (!Directory.Exists(path))
             {
@@ -51,13 +50,28 @@ namespace MailMinion
             File.WriteAllText(pathAndName, content);
         }
 
-        public string SaveAttachment(MimePart attachment, int messageCount, int attachmentCount)
+        public string SaveAttachment(MimePart attachment, int messageCount, int attachmentCount, string folderName)
         {
-            string attachmentName = string.Format("{0}{1}_{2}_{3}", configurationMananger.Configuration.AttachmentDirectory, messageCount, attachmentCount, attachment.FileName);
+            string directoryPath = string.Format("{0}{1}{2}", 
+                configurationMananger.Configuration.OutputPath,
+                folderName,
+                configurationMananger.Configuration.AttachmentDirectory);
 
-            Console.WriteLine("Saving attachment: {0}", attachmentName);
+            string attachmentName = string.Format("{0}_{1}_{2}",  
+                messageCount, 
+                attachmentCount, 
+                attachment.FileName);
 
-            using (FileStream fs = File.OpenWrite(attachmentName))
+            string attachmentPath = string.Format("{0}{1}", directoryPath, attachmentName);
+
+            Console.WriteLine("Saving attachment: {0}", attachmentPath);
+
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            using (FileStream fs = File.OpenWrite(attachmentPath))
             {
                 attachment.Content.DecodeTo(fs);
             }
@@ -79,6 +93,11 @@ namespace MailMinion
         public bool IsImage(string fileName)
         {
             return configurationMananger.Configuration.ImageExtensions.Contains(Path.GetExtension(fileName));
+        }
+
+        public string GetAttachmentPath(string attachmentName, string folderName)
+        {
+            return string.Format(@"{0}\{1}\{2}", folderName, configurationMananger.Configuration.AttachmentDirectory, attachmentName);
         }
     }
 }
