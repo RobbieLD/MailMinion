@@ -28,12 +28,12 @@ namespace MailMinion
         {
             // Create the output directory for this file
             string outputDirectory = string.Format("{0}{1}", configurationMananger.Configuration.OutputPath, fileName);
-            Console.WriteLine("Creating {0}", outputDirectory);
+            //Console.WriteLine("Creating {0}", outputDirectory);
             Directory.CreateDirectory(outputDirectory);
 
             // Create the attachment directory
             string attachmentDirectory = string.Format("{0}{1}{2}", configurationMananger.Configuration.OutputPath, fileName, configurationMananger.Configuration.AttachmentDirectory);
-            Console.WriteLine("Creating {0}", attachmentDirectory);
+            //Console.WriteLine("Creating {0}", attachmentDirectory);
             Directory.CreateDirectory(attachmentDirectory);
         }
 
@@ -64,7 +64,7 @@ namespace MailMinion
 
             string attachmentPath = string.Format("{0}{1}", directoryPath, attachmentName);
 
-            Console.WriteLine("Saving attachment: {0}", attachmentPath);
+            //Console.WriteLine("Saving attachment: {0}", attachmentPath);
 
             if (!Directory.Exists(directoryPath))
             {
@@ -92,12 +92,17 @@ namespace MailMinion
 
         public bool IsImage(string fileName)
         {
-            return configurationMananger.Configuration.ImageExtensions.Contains(Path.GetExtension(fileName));
+            return configurationMananger.Configuration.ImageExtensions.FindIndex(x => x.Equals(Path.GetExtension(fileName), StringComparison.OrdinalIgnoreCase)) != -1;
         }
 
         public string GetAttachmentPath(string attachmentName, string folderName)
         {
             return string.Format(@"{0}\{1}\{2}", folderName, configurationMananger.Configuration.AttachmentDirectory, attachmentName);
+        }
+
+        public string GetAttachmentName(string path)
+        {
+            return Path.GetFileName(path);
         }
     }
 }

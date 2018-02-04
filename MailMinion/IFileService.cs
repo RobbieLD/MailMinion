@@ -15,5 +15,6 @@ namespace MailMinion
         void SaveEmail(string fileName, string content, int messageCount);
         void SaveMailBox(MailBox mailBox, string fileName);
         string GetAttachmentPath(string attachmentName, string folderName);
+        string GetAttachmentName(string path);
     }
 }

@@ -41,6 +41,10 @@ namespace MailMinion
             // Read All the files in the input folder and process them
             foreach (string file in files)
             {
+                // Skip .fix files
+                if (Path.GetExtension(file) == ".fix")
+                    continue;
+
                 Console.WriteLine("Processing " + file);
 
                 tasks.Add(Task.Factory.StartNew(() => {
@@ -50,7 +54,7 @@ namespace MailMinion
                 }));
             }
 
-            File.Copy("Resources\\bulma.css", configurationMananger.Configuration.OutputPath + "bulma.css", true);
+            File.Copy(@"Resources\bulma.css", configurationMananger.Configuration.OutputPath + "bulma.css", true);
             
             Task.WaitAll(tasks.ToArray());
         }

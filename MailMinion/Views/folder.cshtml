@@ -15,8 +15,14 @@
             for (let i = 0; i < cardToggles.length; i++) {
                 cardToggles[i].addEventListener('click', e => {
                     e.currentTarget.nextElementSibling.classList.toggle('is-hidden');
-                    e.currentTarget.nextElementSibling.nextElementSibling.classList.toggle('is-hidden');
                     e.currentTarget.classList.toggle('is-selected');
+
+                    var bodyRow = e.currentTarget.nextElementSibling.nextElementSibling;
+                    bodyRow.classList.toggle('is-hidden');
+
+                    // load the email body
+                    var iframe = bodyRow.getElementsByTagName('iframe')[0];
+                    iframe.src = iframe.dataset.src;
                 });
             }
 
@@ -37,7 +43,7 @@
         });
 
         window.addEventListener('keydown', function (e) {
-            // Capture Control A for expand all
+            // Capture Control+A for expand all
             if (event.ctrlKey && event.keyCode == 65) {
                 console.log('Expanding all');
 
@@ -50,7 +56,7 @@
                 event.preventDefault();
             }
 
-            // Capture Control S for Collapse All
+            // Capture Control+S for Collapse All
             if (event.ctrlKey && event.keyCode == 83) {
                 console.log('Collapsing all');
 
@@ -63,7 +69,7 @@
                 event.preventDefault();
             }
 
-            // Capture Control W for Collapse All Attachments
+            // Capture Control+W for Collapse All Attachments
             if (event.ctrlKey && event.keyCode == 69) {
                 console.log('Collapsing all');
 
@@ -75,7 +81,7 @@
                 event.preventDefault();
             }
 
-            // Capture Control Q for expand all attachments
+            // Capture Control+Q for expand all attachments
             if (event.ctrlKey && event.keyCode == 81) {
                 console.log('Expanding all');
 
@@ -94,10 +100,18 @@
     <!-- Main Email Layout One Tab Per Folder -->
     <div class="tabs is-toggle is-fullwidth">
         <ul>
-            <li class="is-active"><a>@Model.Name</a></li>
+            
             @foreach (var tab in Model.Tabs)
             {
-                <li><a href="@tab.Url">@tab.Name</a></li>
+                @if (tab.Name == Model.Name)
+                {
+                    <li class="is-active"><a>@tab.Name</a></li>
+
+                }
+                else
+                {
+                    <li><a href="@tab.Url">@tab.Name</a></li>
+                }
             }
         </ul>
     </div>
@@ -133,18 +147,25 @@
                                     @foreach (var attachment in message.Attachments)
                                     {
                                         <td>
-                                            <a class="modal-link" href="#nogo">
-                                                <img src="@attachment.Url" height="50" width="50" alt="@attachment.Url" />
-                                            </a>
-                                            <div class="modal">
-                                                <div class="modal-background"></div>
-                                                <div class="modal-content">
-                                                    <p class="image">
-                                                        <img src="@attachment.Url" alt="@attachment.Url">
-                                                    </p>
+                                            @if (attachment.IsImage)
+                                            {
+                                                <a class="modal-link" href="#nogo">
+                                                    <img src="@attachment.Url" height="50" width="50" alt="@attachment.Url" />
+                                                </a>
+                                                <div class="modal">
+                                                    <div class="modal-background"></div>
+                                                    <div class="modal-content">
+                                                        <p class="image">
+                                                            <img src="@attachment.Url" alt="@attachment.Url">
+                                                        </p>
+                                                    </div>
+                                                    <button class="modal-close is-large" aria-label="close"></button>
                                                 </div>
-                                                <button class="modal-close is-large" aria-label="close"></button>
-                                            </div>
+                                            }
+                                            else
+                                            {
+                                                <a href="@attachment.Url">@attachment.Name</a>
+                                            }
                                         </td>
                                     }
                                 </tr>
@@ -157,7 +178,7 @@
                     <td colspan="5">
                         <div class="card-content">
                             <div class="content">
-                                <iframe frameborder="0" allowtransparency="true" style="display:block; width:97vw; height:100vh;" src="@message.FileName"></iframe>
+                                <iframe frameborder="0" allowtransparency="true" style="display:block; width:97vw; height:100vh;" data-src="@message.FileName"></iframe>
                             </div>
                         </div>
                     </td>

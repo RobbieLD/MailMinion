@@ -18,30 +18,19 @@ namespace MailMinion
 
         public MailBox Create(string path, IList<Tab> tabs)
         {
-            MailBox mailBox = new MailBox();
+            // Create file which wil be used
+            // TODO: Find a way to fix files with out escaped 'From' lines in body of message
+            //string fixPath = FixFile(path);
+
             string fileName = Path.GetFileName(path);
+            MailBox mailBox = new MailBox(fileName);
 
             // Create a stream from the input file
             using (var stream = fileService.GetMailStream(path))
             {
                 // Create the parser
                 var parser = new MimeParser(stream, MimeFormat.Mbox);
-
-                // remove the current folder as a tab
-                int currentTabIndex = 0;
                 
-                foreach(Tab tab in tabs)
-                {
-                    if (tab.Name == fileName)
-                    {
-                        break;
-                    }
-
-                    currentTabIndex++;
-                }
-
-                tabs.RemoveAt(currentTabIndex);
-
                 Folder folderModel = new Folder
                 {
                     Name = fileName,
@@ -59,31 +48,25 @@ namespace MailMinion
 
                         mailBox.MessageCount++;
                         var message = parser.ParseMessage();
-                        if (message.From.Count < 1)
+
+                        foreach (MailboxAddress fromAddress in message.From.Mailboxes)
                         {
-                            skip = true;
-                            break;
-                        }
-                        else
-                        {
-                            foreach (MailboxAddress fromAddress in message.From)
+                            if (fromAddress.Address.Split('@').Length < 1)
                             {
-                                if (fromAddress.Address.Split('@').Length < 1)
+                                Console.WriteLine(string.Format("{0}:{1} -> There is a problem with this address: {2}", mailBox.MessageCount, fileName, fromAddress.Address));
+                                skip = true;
+                                mailBox.ErrorCount++;
+                            }
+                            else
+                            {
+                                if (fileService.IgnoreList.Contains(fromAddress.Address.Split('@')[1]))
                                 {
-                                    Console.WriteLine(string.Format("{0}: There is a problem with this address: {1}", mailBox.MessageCount, fromAddress.Address));
+                                    mailBox.IgnoreCount++;
                                     skip = true;
-                                }
-                                else
-                                {
-                                    if (fileService.IgnoreList.Contains(fromAddress.Address.Split('@')[1]))
-                                    {
-                                        mailBox.IgnoreCount++;
-                                        skip = true;
-                                        break;
-                                    }
+                                    break;
                                 }
                             }
-                        }
+                        }               
 
                         if (skip)
                         {
@@ -143,7 +126,8 @@ namespace MailMinion
                                 messageModel.Attachments.Add(new Attachment()
                                 {
                                     Url = fileService.GetAttachmentPath(an, folderModel.Name),
-                                    IsImage = fileService.IsImage(an)
+                                    IsImage = fileService.IsImage(an),
+                                    Name = fileService.GetAttachmentName(an)
                                 });                                
                             }
                         }
@@ -153,7 +137,7 @@ namespace MailMinion
                     catch (Exception ex)
                     {
                         mailBox.ErrorCount++;
-                        Console.WriteLine(string.Format("{0}:{1}", mailBox.MessageCount, ex.Message));
+                        Console.WriteLine(string.Format("{0}:{4} -> {1} ({2}:{3})", mailBox.MessageCount, ex.Message, parser.MboxMarker, parser.MboxMarkerOffset, fileName));
                         stream.Position = parser.Position;
                         parser.SetStream(stream, MimeFormat.Mbox);
                         continue;
@@ -170,5 +154,42 @@ namespace MailMinion
 
             return mailBox;
         }        
+
+        /// <summary>
+        /// This method scans over the file and fixes any cases which might cause parsing errors. These are as follows. 
+        /// 1. A line starting with 'From ' and not being preceded by a blank line. 
+        /// </summary>
+        /// <param name="path"></param>
+        private string FixFile(string path)
+        {
+            string fixPath = string.Format("{0}.fix", path);
+            Console.WriteLine("Creating .fix file {0}", fixPath);
+
+            if (File.Exists(fixPath))
+            {
+                File.Delete(fixPath);
+            }
+
+            using (StreamReader reader = new StreamReader(path))
+            using (StreamWriter writer = new StreamWriter(fixPath))
+            {
+                string currentLine, previousline = "";
+                while((currentLine = reader.ReadLine()) != null)
+                {
+                    if (currentLine.StartsWith("From "))
+                    {
+                        if (!string.IsNullOrEmpty(previousline))
+                        {
+                            currentLine = currentLine.Replace("From ", "from ");
+                        }
+                    }
+
+                    writer.WriteLine(currentLine);
+                    previousline = currentLine;
+                }
+            }
+
+            return fixPath;
+        }
     }
 }

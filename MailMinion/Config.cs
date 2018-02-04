@@ -9,6 +9,6 @@ namespace MailMinion
         public string IgnoreListPath { get; set; }
         public string TemplateDirectory { get; set; }
         public string AttachmentDirectory { get; set; }
-        public IList<string> ImageExtensions { get; set; }
+        public List<string> ImageExtensions { get; set; }
     }
 }
