@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using MailMinion.Models;
 using System.IO;
-using RazorTemplates.Core;
+using Scriban;
 
 namespace MailMinion
 {
@@ -145,7 +145,7 @@ namespace MailMinion
                 }
 
                 // Render out the contents of the file
-                var template = Template.Compile(fileService.Template);
+                var template = Template.Parse(fileService.Template);
                 mailBox.Html = template.Render(folderModel);
             }
 

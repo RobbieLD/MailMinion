@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@Model.Name</title>
+    <title>{{ name }}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="bulma.css">
@@ -100,19 +100,13 @@
     <!-- Main Email Layout One Tab Per Folder -->
     <div class="tabs is-toggle is-fullwidth">
         <ul>
-            
-            @foreach (var tab in Model.Tabs)
-            {
-                @if (tab.Name == Model.Name)
-                {
-                    <li class="is-active"><a>@tab.Name</a></li>
-
-                }
-                else
-                {
-                    <li><a href="@tab.Url">@tab.Name</a></li>
-                }
-            }
+            {{ for tab in tabs }}
+                {{ if tab.name == name }} 
+                    <li class="is-active"><a>{{tab.name}}</a></li>
+                {{ else }}
+                    <li><a href="{{ tab.url }}">{{ tab.name }}</a></li>
+                {{ end }}
+            {{ end }}
         </ul>
     </div>
 
@@ -128,14 +122,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var message in Model.Messages)
-            {
+            {{ for message in messages }}
+            
                 <tr class="card-toggle">
-                    <td>@message.Date</td>
-                    <td>@message.From</td>
-                    <td>@message.To</td>
-                    <td>@message.Subject</td>
-                    <td>@message.Attachments.Count</td>
+                    <td>{{ message.date }}</td>
+                    <td>{{ message.from }}</td>
+                    <td>{{ message.to }}</td>
+                    <td>{{ message.subject }}</td>
+                    <td>{{ message.attachments.count }}</td>
                 </tr>
 
                 <!-- Attachment Row -->
@@ -144,30 +138,27 @@
                         <div>
                             <table>
                                 <tr>
-                                    @foreach (var attachment in message.Attachments)
-                                    {
+                                    {{ for attachment in message.attachments }}
                                         <td>
-                                            @if (attachment.IsImage)
-                                            {
+                                            {{ if attachment.IsImage }}
+                                            
                                                 <a class="modal-link" href="#nogo">
-                                                    <img src="@attachment.Url" height="50" width="50" alt="@attachment.Url" />
+                                                    <img src="{{ attachment.url }}" height="50" width="50" alt="{{ attachment.url }}" />
                                                 </a>
                                                 <div class="modal">
                                                     <div class="modal-background"></div>
                                                     <div class="modal-content">
                                                         <p class="image">
-                                                            <img src="@attachment.Url" alt="@attachment.Url">
+                                                            <img src="{{ attachment.url }}" alt="{{ ttachment.url }}">
                                                         </p>
                                                     </div>
                                                     <button class="modal-close is-large" aria-label="close"></button>
                                                 </div>
-                                            }
-                                            else
-                                            {
-                                                <a href="@attachment.Url">@attachment.Name</a>
-                                            }
+                                            {{ else }}
+                                                <a href="{{ attachment.url }}">{{ attachment.name }}</a>
+                                            {{ end }}
                                         </td>
-                                    }
+                                    {{ end }}
                                 </tr>
                             </table>
                         </div>
@@ -178,13 +169,13 @@
                     <td colspan="5">
                         <div class="card-content">
                             <div class="content">
-                                <iframe frameborder="0" allowtransparency="true" style="display:block; width:97vw; height:100vh;" data-src="@message.FileName"></iframe>
+                                <iframe frameborder="0" allowtransparency="true" style="display:block; width:97vw; height:100vh;" data-src="{{ message.filename }}"></iframe>
                             </div>
                         </div>
                     </td>
                 </tr>
 
-            }
+            {{ end }}
         </tbody>
     </table>
 </body>

@@ -46,7 +46,7 @@ namespace MailMinion.Tests
             MailBoxCreator mailBoxCreator = new MailBoxCreator(mockFileService.Object);
 
             // Act
-            MailBox mailBox = mailBoxCreator.Create("test", new List<Tab>()
+            MailBox mailBox = mailBoxCreator.Create("TestTitle", new List<Tab>()
             {
                 new Tab()
                 {
