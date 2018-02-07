@@ -20,36 +20,54 @@ namespace MailMinion
         public void GenerateMailBoxes()
         {
             // Load config file file 
-            string[] files = Directory.GetFiles(configurationMananger.Configuration.InputPath);
+            string[] files = Directory.GetFiles(configurationMananger.Configuration.InputPath, "*", SearchOption.AllDirectories);
+
+            List<Tab> tabs = new List<Tab>();
+
+            foreach(string file in files)
+            {
+                string fn = Path.GetFileName(file);
+                string ext = Path.GetFileNameWithoutExtension(file);
+
+                if (fn == ext)
+                {
+                    tabs.Add(new Tab()
+                    {
+                        Name = fn,
+                        Url = string.Format("{0}.html", fn),
+                        RawPath = file
+                    });
+                }
+            }
+
+            Console.WriteLine("The following files will be processed");
+
+            foreach(Tab tab in tabs)
+            {
+                Console.WriteLine(tab.Url);
+            }
+
+            Console.Write("Is this correct? (y/n):");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            if (keyInfo.KeyChar != 'Y' && keyInfo.KeyChar != 'y')
+            {
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine();
 
             List<Task> tasks = new List<Task>();
 
-            // Generate the tabs content to be injected into the Razor view for each folder
-            List<Tab> tabs = new List<Tab>();
-
-            foreach (string file in files)
-            {
-                string fn = Path.GetFileName(file);
-
-                tabs.Add(new Tab()
-                {
-                    Name = fn,
-                    Url = string.Format("{0}.html", fn),
-                });
-            }
-
             // Read All the files in the input folder and process them
-            foreach (string file in files)
+            foreach (Tab tab in tabs)
             {
-                // Skip .fix files
-                if (Path.GetExtension(file) == ".fix")
-                    continue;
-
-                Console.WriteLine("Processing " + file);
+                Console.WriteLine("Processing " + tab.Url);
 
                 tasks.Add(Task.Factory.StartNew(() => {
                     MailBoxCreator mailBoxCreator = new MailBoxCreator(fileService);
-                    MailBox box = mailBoxCreator.Create(file, tabs);
+                    MailBox box = mailBoxCreator.Create(tab.RawPath, tabs);
                     Console.WriteLine(box.GetSummary());
                 }));
             }

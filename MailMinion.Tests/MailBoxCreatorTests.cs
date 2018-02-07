@@ -3,7 +3,6 @@ using Moq;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using MimeKit;
 using MailMinion.Models;
 
 namespace MailMinion.Tests

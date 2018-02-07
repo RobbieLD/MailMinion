@@ -129,7 +129,7 @@
                     <td>{{ message.from }}</td>
                     <td>{{ message.to }}</td>
                     <td>{{ message.subject }}</td>
-                    <td>{{ message.attachments.count }}</td>
+                    <td>{{ message.attachment_count }}</td>
                 </tr>
 
                 <!-- Attachment Row -->
@@ -140,7 +140,7 @@
                                 <tr>
                                     {{ for attachment in message.attachments }}
                                         <td>
-                                            {{ if attachment.IsImage }}
+                                            {{ if attachment.is_image }}
                                             
                                                 <a class="modal-link" href="#nogo">
                                                     <img src="{{ attachment.url }}" height="50" width="50" alt="{{ attachment.url }}" />
@@ -149,7 +149,7 @@
                                                     <div class="modal-background"></div>
                                                     <div class="modal-content">
                                                         <p class="image">
-                                                            <img src="{{ attachment.url }}" alt="{{ ttachment.url }}">
+                                                            <img src="{{ attachment.url }}" alt="{{ attachment.url }}">
                                                         </p>
                                                     </div>
                                                     <button class="modal-close is-large" aria-label="close"></button>
@@ -169,7 +169,7 @@
                     <td colspan="5">
                         <div class="card-content">
                             <div class="content">
-                                <iframe frameborder="0" allowtransparency="true" style="display:block; width:97vw; height:100vh;" data-src="{{ message.filename }}"></iframe>
+                                <iframe frameborder="0" allowtransparency="true" style="display:block; width:97vw; height:100vh;" data-src="{{ message.file_name }}"></iframe>
                             </div>
                         </div>
                     </td>

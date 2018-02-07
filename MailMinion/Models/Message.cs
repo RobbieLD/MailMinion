@@ -17,5 +17,12 @@ namespace MailMinion.Models
         public string Subject { get; set; }
         public string FileName { get; set; }
         public IList<Attachment> Attachments { get; set; }
+        public int AttachmentCount
+        {
+            get
+            {
+                return Attachments.Count;
+            }
+        }
     }
 }

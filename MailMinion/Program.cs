@@ -16,7 +16,7 @@ namespace MailMinion
 
             serviceProvider.GetService<IMailBoxManager>().GenerateMailBoxes();
 
-            Console.WriteLine("Processing Done");
+            Console.WriteLine("Processing Done, press any key to exit");
             Console.ReadKey();
         }
     }

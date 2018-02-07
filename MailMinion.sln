@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailMinion", "MailMinion\MailMinion.csproj", "{0C49F4EF-B7A0-47B0-B6A7-7A509419ED7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailMinion", "MailMinion\MailMinion.csproj", "{C1DF6E4B-404C-4671-B077-66D42EEC0D46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailMinion.Tests", "MailMinion.Tests\MailMinion.Tests.csproj", "{8DE1B099-BF95-4FAD-ABAE-C0B66E7E188C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailMinion.Tests", "MailMinion.Tests\MailMinion.Tests.csproj", "{442FD75C-F8BD-459E-B9CE-1B9F002C2227}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0C49F4EF-B7A0-47B0-B6A7-7A509419ED7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C49F4EF-B7A0-47B0-B6A7-7A509419ED7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C49F4EF-B7A0-47B0-B6A7-7A509419ED7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C49F4EF-B7A0-47B0-B6A7-7A509419ED7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8DE1B099-BF95-4FAD-ABAE-C0B66E7E188C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DE1B099-BF95-4FAD-ABAE-C0B66E7E188C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DE1B099-BF95-4FAD-ABAE-C0B66E7E188C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DE1B099-BF95-4FAD-ABAE-C0B66E7E188C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1DF6E4B-404C-4671-B077-66D42EEC0D46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1DF6E4B-404C-4671-B077-66D42EEC0D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1DF6E4B-404C-4671-B077-66D42EEC0D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1DF6E4B-404C-4671-B077-66D42EEC0D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{442FD75C-F8BD-459E-B9CE-1B9F002C2227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{442FD75C-F8BD-459E-B9CE-1B9F002C2227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{442FD75C-F8BD-459E-B9CE-1B9F002C2227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{442FD75C-F8BD-459E-B9CE-1B9F002C2227}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {3C3E6D36-DAF1-45E9-B7B9-47B45E55F344}
+		SolutionGuid = {2A41EFA5-64D5-4553-9148-DCB13DBF605F}
 	EndGlobalSection
 EndGlobal

@@ -14,7 +14,7 @@ namespace MailMinion
         {
             get
             {
-                return File.ReadAllText(string.Format(@"{0}\folder.cshtml", configurationMananger.Configuration.TemplateDirectory));
+                return File.ReadAllText(string.Format(@"Views\folder.cshtml"));
             }
         }
 
