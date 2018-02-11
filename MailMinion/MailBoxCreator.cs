@@ -136,6 +136,12 @@ namespace MailMinion
                     }
                     catch (Exception ex)
                     {
+                        if (ex.Message == "End of stream.")
+                        {
+                            // We really can't do anything there we just break the loop
+                            break;
+                        }
+
                         mailBox.ErrorCount++;
                         Console.WriteLine(string.Format("{0}:{4} -> {1} ({2}:{3})", mailBox.MessageCount, ex.Message, parser.MboxMarker, parser.MboxMarkerOffset, fileName));
                         stream.Position = parser.Position;

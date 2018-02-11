@@ -1,7 +1,7 @@
 ﻿{
- "OutputPath":"E:\\Finished Files\\",
- "InputPath": "C:\\inbox\\",
- "IgnoreListPath": "E:\\ignore.txt",
- "AttachmentDirectory": "\\attachments\\",
- "ImageExtensions": [ ".jpg", ".bmp", ".jpeg", ".gif", ".png" ]
+  "OutputPath": "C:/Temp/Dump",
+  "InputPath": "C:/Temp/FullTest/imap-mail.outlook-3.com",
+  "IgnoreListPath": "E:/ignore.txt",
+  "AttachmentDirectory": "\\attachments\\",
+  "ImageExtensions": [ ".jpg", ".bmp", ".jpeg", ".gif", ".png" ]
 }

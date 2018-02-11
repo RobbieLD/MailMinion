@@ -21,7 +21,14 @@ namespace MailMinion
         public FileService(IConfigurationMananger manager)
         {
             configurationMananger = manager;
-            IgnoreList = File.ReadAllLines(configurationMananger.Configuration.IgnoreListPath);
+
+            if (File.Exists(configurationMananger.Configuration.IgnoreListPath))
+            {
+                IgnoreList = File.ReadAllLines(configurationMananger.Configuration.IgnoreListPath);
+            }else
+            {
+                IgnoreList = new List<string>();
+            }
         }
 
         private void CreateOutputDirectories(string fileName)
