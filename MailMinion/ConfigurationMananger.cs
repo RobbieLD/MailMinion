@@ -12,9 +12,17 @@ namespace MailMinion
 
         public ConfigurationMananger(string path)
         {
-            using (StreamReader r = new StreamReader(path))
+            using (StreamReader r = new StreamReader(path, true))
             {
+                Console.WriteLine("Reading config file {0}", path);
                 string json = r.ReadToEnd();
+
+                if (json[0] == 65279)
+                {
+                    json = json.Substring(1, json.Length - 1);
+                }
+
+                Console.WriteLine(json);
                 Configuration = JsonConvert.DeserializeObject<Config>(json);
             }
         }

@@ -44,7 +44,7 @@ namespace MailMinion
 
             foreach(Tab tab in tabs)
             {
-                Console.WriteLine(tab.Url);
+                Console.WriteLine(tab.RawPath);
             }
 
             Console.Write("Is this correct? (y/n):");

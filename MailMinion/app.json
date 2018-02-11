@@ -1,7 +1,7 @@
 ﻿{
-  "OutputPath": "C:\\Temp\\Dump\\",
-  "InputPath": "C:\\Users\\bob_c\\Desktop\\",
-  "IgnoreListPath": "C:\\Temp\\ignore.txt",
-  "AttachmentDirectory": "\\attachments\\",
-  "ImageExtensions": [ ".jpg", ".bmp", ".jpeg", ".gif", ".png" ]
+ "OutputPath":"E:\\Finished Files\\",
+ "InputPath": "C:\\inbox\\",
+ "IgnoreListPath": "E:\\ignore.txt",
+ "AttachmentDirectory": "\\attachments\\",
+ "ImageExtensions": [ ".jpg", ".bmp", ".jpeg", ".gif", ".png" ]
 }
