@@ -1,6 +1,6 @@
 ﻿{
   "OutputPath": "C:/Temp/Dump",
-  "InputPath": "C:/Temp/FullTest/imap-mail.outlook-3.com",
+  "InputPath": "C:\\Temp\\mbox2",
   "IgnoreListPath": "E:/ignore.txt",
   "AttachmentDirectory": "\\attachments\\",
   "ImageExtensions": [ ".jpg", ".bmp", ".jpeg", ".gif", ".png" ]

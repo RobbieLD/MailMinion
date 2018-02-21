@@ -34,19 +34,19 @@ namespace MailMinion
         private void CreateOutputDirectories(string fileName)
         {
             // Create the output directory for this file
-            string outputDirectory = string.Format("{0}{1}", configurationMananger.Configuration.OutputPath, fileName);
-            //Console.WriteLine("Creating {0}", outputDirectory);
+            string outputDirectory = string.Format(@"{0}\{1}", configurationMananger.Configuration.OutputPath, fileName);
+            
             Directory.CreateDirectory(outputDirectory);
 
             // Create the attachment directory
-            string attachmentDirectory = string.Format("{0}{1}{2}", configurationMananger.Configuration.OutputPath, fileName, configurationMananger.Configuration.AttachmentDirectory);
-            //Console.WriteLine("Creating {0}", attachmentDirectory);
+            string attachmentDirectory = string.Format(@"{0}\{1}\{2}", configurationMananger.Configuration.OutputPath, fileName, configurationMananger.Configuration.AttachmentDirectory);
+            
             Directory.CreateDirectory(attachmentDirectory);
         }
 
         public void SaveEmail(string fileName, string content, int messageCount)
         {
-            string path = string.Format("{0}{1}", configurationMananger.Configuration.OutputPath, fileName);
+            string path = string.Format(@"{0}\{1}", configurationMananger.Configuration.OutputPath, fileName);
             string pathAndName = string.Format(@"{0}\{1}.html", path, messageCount);
             
             if (!Directory.Exists(path))
@@ -59,7 +59,7 @@ namespace MailMinion
 
         public string SaveAttachment(MimePart attachment, int messageCount, int attachmentCount, string folderName)
         {
-            string directoryPath = string.Format("{0}{1}{2}", 
+            string directoryPath = string.Format(@"{0}\{1}\{2}", 
                 configurationMananger.Configuration.OutputPath,
                 folderName,
                 configurationMananger.Configuration.AttachmentDirectory);
@@ -69,9 +69,7 @@ namespace MailMinion
                 attachmentCount, 
                 attachment.FileName);
 
-            string attachmentPath = string.Format("{0}{1}", directoryPath, attachmentName);
-
-            //Console.WriteLine("Saving attachment: {0}", attachmentPath);
+            string attachmentPath = string.Format(@"{0}\{1}", directoryPath, attachmentName);
 
             if (!Directory.Exists(directoryPath))
             {
@@ -88,7 +86,7 @@ namespace MailMinion
 
         public void SaveMailBox(MailBox mailBox, string fileName)
         {
-            string path = string.Format("{0}{1}.html", configurationMananger.Configuration.OutputPath, fileName);
+            string path = string.Format(@"{0}\{1}.html", configurationMananger.Configuration.OutputPath, fileName);
             File.WriteAllText(path, mailBox.Html);
         }
 
