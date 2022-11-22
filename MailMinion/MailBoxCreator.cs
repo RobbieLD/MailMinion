@@ -113,7 +113,7 @@ namespace MailMinion
                         {
                             Date = message.Date.Date,
                             // TODO: Support multiple Addresses
-                            To = (message.To[0] as MailboxAddress).Address,
+                            To = (message.To[0] as MailboxAddress)?.Address ?? "Undisclosed-recipients",
                             From = (message.From[0] as MailboxAddress).Address,
                             Subject = message.Subject,
                             FileName = string.Format(@"{0}\{1}.html", fileName, mailBox.MessageCount)
