@@ -72,9 +72,10 @@ namespace MailMinion
                 }));
             }
 
-            File.Copy(@"Resources\bulma.css", configurationMananger.Configuration.OutputPath + "bulma.css", true);
-            
             Task.WaitAll(tasks.ToArray());
+
+            // Wait for above tasks to complete so as "Dump" folder is known to exist
+            File.Copy(@"Resources\bulma.css", Path.Combine(configurationMananger.Configuration.OutputPath, "bulma.css"), true);
         }
     }
 }
