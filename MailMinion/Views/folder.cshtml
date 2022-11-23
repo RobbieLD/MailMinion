@@ -9,12 +9,7 @@
     <link rel="stylesheet" type="text/css" href="bulma.css">
 </head>
 <body>
-    <script>
-        let firefoxAgent = navigator.userAgent.indexOf("Firefox") > -1;
-        if (!firefoxAgent)
-            alert("This site only works correctly on Firefox :)");
-
-
+    <script>        
         document.addEventListener('DOMContentLoaded', function () {
             let cardToggles = document.getElementsByClassName('card-toggle');
             for (let i = 0; i < cardToggles.length; i++) {
